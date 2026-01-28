@@ -54,6 +54,7 @@ bool regula_falsi(std::function<double(double)> f,
     
             
         // Keep running the loop until desired tolerance
+        if (f(a) < 0 or f(b) > 0) { 
                 while (std::abs(f(c)) >  1e-6) {
 
                 // Calculate the x intersections (derived)
@@ -63,7 +64,7 @@ bool regula_falsi(std::function<double(double)> f,
                 counter = counter + 1;
 
                 // Stop whenever we get to a point where the difference between c and the previous iteration cd evaluates f(x) to nearly zero
-                if (std::abs(f(c - cd)) < 1e-15) {
+                if (std::abs(f(c - cd)) < 1e-6) {
                     break;
                 }
 
@@ -74,6 +75,10 @@ bool regula_falsi(std::function<double(double)> f,
                         a = c;
                 }
         
+        }
+        }
+        else {
+            return false;
         }
     *root = c;
     
@@ -90,6 +95,7 @@ bool newton_raphson(std::function<double(double)> f,
 
     int counter{0};
         // While loop until desired tolerance
+        if (c > a & c < b & g(c) != 0) {
                 while (std::abs(f(c)) > 1e-6) {
 
                 // Calculate the root using Newton's method
@@ -98,10 +104,13 @@ bool newton_raphson(std::function<double(double)> f,
                 // Iteration count
                 counter = counter + 1;
                 
+            }
+        *root = c;
+            return true;
         }
-    *root = c;
-    
-    return true;
+            else {
+                return false;
+            }
 
 }
 
@@ -109,10 +118,11 @@ bool secant(std::function<double(double)> f,
             double a, double b, double c,
             double *root)
             {
-
+                
     int counter{0};
 
         // While loop until desired precision
+        if (c > a & c < b) {
                 while (std::abs(f(c)) > 1e-6) {
 
                 // Use secant method to iterate c
@@ -125,7 +135,10 @@ bool secant(std::function<double(double)> f,
                 a = b;
                 b = c;
         }
-    *root = c;
-    return true;
-
+        *root = c;
+        return true;
 }
+            else {
+                return false;
+            }
+        }

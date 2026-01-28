@@ -35,7 +35,8 @@ Root finding can be described as finding all the zero-crossings of an analytical
 ```shell
 cmake -S . -B build
 cmake --build build --config Debug
-build\Debug\roots_demo.exe
+'build/roots_demo'
+'build/test_roots'
 ```
 
 ## Testing
