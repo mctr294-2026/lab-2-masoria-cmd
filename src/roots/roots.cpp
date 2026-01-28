@@ -118,10 +118,10 @@ bool secant(std::function<double(double)> f,
                 // Use secant method to iterate c
                 c = a - ((b - a) / (f(b) - f(a))) * f(a);
                 
-                // Iteration count
+                // Iteration count for debugging
                 counter = counter + 1;
 
-                // The bounds are then swapped
+                // The bounds are then swapped to keep stepping closer to c
                 a = b;
                 b = c;
         }
